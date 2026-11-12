@@ -1,0 +1,9 @@
+/build/*
+!/build/.gitkeep
+/debs/*
+/sysroot/
+/vendor/original/
+/vendor/compat/
+/vendor/vendor-sha256.txt
+/tests/__pycache__/
+*.pyc

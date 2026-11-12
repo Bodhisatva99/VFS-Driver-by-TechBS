@@ -1,0 +1,28 @@
+[Unit]
+Description=Persistent HP Validity VFS491 fingerprint service
+Documentation=file:/usr/share/doc/vfs491-fprintd-tod/README.md
+After=local-fs.target systemd-modules-load.service systemd-udev-trigger.service
+Before=fprintd.service
+StartLimitIntervalSec=60
+StartLimitBurst=4
+
+[Service]
+Type=exec
+ExecStart=/usr/libexec/vfs491/vfs491d-launcher
+ExecStartPost=/usr/libexec/vfs491/vfs491-wait-ready
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=150s
+TimeoutStopSec=20s
+KillMode=control-group
+UMask=0077
+User=root
+Group=root
+StateDirectory=vfs491
+StateDirectoryMode=0700
+PrivateMounts=yes
+PrivateIPC=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
